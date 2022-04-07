@@ -422,12 +422,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 249056183}
-  background: {fileID: 8300000, guid: 25a2c1a02e8c11d459259135625f5f5a, type: 3}
+  background: {fileID: 8300000, guid: 0de321f4e0247d2439dc5e7738c6f6cf, type: 3}
   buttonDown: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
   buttonUp: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
   menuSwish: {fileID: 8300000, guid: 24b6ecf416c9fcd489bfb7c558414557, type: 3}
-  playerCollision: {fileID: 8300000, guid: 4f9be737761025043b64281363c9f2c3, type: 3}
-  playerDenied: {fileID: 8300000, guid: d32ebb9f1df1cae46ad745ffa18d8760, type: 3}
+  playerCollision: {fileID: 8300000, guid: 2aae598c2f762004fb4460cd5c5719e9, type: 3}
+  playerDenied: {fileID: 8300000, guid: 8f080da86bc03c3459630eb241ce883d, type: 3}
+  playerStateChange: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  winningSound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  losingSound: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
+  newLevel: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+  shootingSound: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
 --- !u!82 &249056183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -532,11 +537,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249056181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1002.7153, y: -136.61768, z: 0.02017162}
-  m_LocalScale: {x: 3.497268, y: 3.497268, z: 3.497268}
+  m_LocalPosition: {x: 328.42523, y: -18.568222, z: 0.0062931255}
+  m_LocalScale: {x: 1.0910748, y: 1.0910748, z: 1.0910748}
   m_Children: []
-  m_Father: {fileID: 1814295590}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &259759023 stripped
 RectTransform:
@@ -2229,8 +2234,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 249056184}
+  m_Children: []
   m_Father: {fileID: 1267265591}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
