@@ -6,19 +6,20 @@ using UnityEngine.UI;
 public class MuteMusic : MonoBehaviour
 {
     public AudioSource BGM;
+    public Button MuteButton;
     
-    
-    
+        
     public void MuteToggle(bool muted)
     {
+        
         print(muted);
-        if(muted)
-        {
-            BGM.volume = 0;
-        }
-        else;
+        if(muted == false)
         {
             BGM.volume = 1;
+        }
+        else
+        {
+            BGM.volume = 0;
         }
     }
 }
