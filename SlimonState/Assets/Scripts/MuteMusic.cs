@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MuteMusic : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public AudioSource BGM;
+    public void MuteToggle(bool muted)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(muted)
+        {
+            BGM.volume = 0;
+        }
+        else;
+        {
+            BGM.volume = 1;
+        }
     }
 }
