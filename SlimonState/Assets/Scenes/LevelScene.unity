@@ -6410,6 +6410,7 @@ GameObject:
   - component: {fileID: 1928776346}
   - component: {fileID: 1928776350}
   - component: {fileID: 1928776348}
+  - component: {fileID: 1928776351}
   m_Layer: 7
   m_Name: player
   m_TagString: Untagged
