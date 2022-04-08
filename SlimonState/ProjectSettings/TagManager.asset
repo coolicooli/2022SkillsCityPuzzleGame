@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Teleporter
-  - piece1
-  - piece2
-  - piece3
+  tags: []
   layers:
   - Default
   - TransparentFX
