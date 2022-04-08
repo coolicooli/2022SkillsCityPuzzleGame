@@ -58,7 +58,7 @@ public class playerControllor : MonoBehaviour
     public void Update()
     {
 
-       
+        
 
         if (!isMoving )
         {
@@ -67,10 +67,10 @@ public class playerControllor : MonoBehaviour
 
 
             input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+            input.z = Input.GetAxisRaw("Vertical");
             
 
-            if (input.y != 0)
+            if (input.z != 0)
             {
                 input.x = 0;
             }
@@ -78,12 +78,12 @@ public class playerControllor : MonoBehaviour
 
             if (input != Vector3.zero)
             {
+                
                 prevPlayerFaceing = playerFaceing;
                 SetFaceingDirection();
-                Debug.Log(prevPlayerFaceing+ "   previous");
-                Debug.Log(playerFaceing + "   current");
+               
                 animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
+                animator.SetFloat("moveY", input.z);
                 if (playerFaceing != prevPlayerFaceing)
                 {
                     remainingDelay = delay;
@@ -95,11 +95,11 @@ public class playerControllor : MonoBehaviour
                 }
 
                 animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
+                animator.SetFloat("moveY", input.z);
                 var targetPos = transform.position;
                 positionChange = Vector3.zero;
                 positionChange.x += input.x;
-                positionChange.y += input.y;
+                positionChange.z+= input.z;
                 var test = targetPos + positionChange;
                 if (isWalkerble(test))
                 {
@@ -121,17 +121,23 @@ public class playerControllor : MonoBehaviour
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+
+        while ((targetPos - transform.position).sqrMagnitude > 0.00000000001f)
         {
+            
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            Debug.Log((targetPos - transform.position).sqrMagnitude);
             yield return null;
         }
+        
         transform.position = targetPos;
         isMoving = false;
-       
+        
+        yield return null;
+
     }
 
-    private bool isWalkerble(Vector3 targetPos)
+    /*private bool isWalkerble(Vector3 targetPos)
     {
 
         if (Physics2D.OverlapCircle(targetPos, 0.3f, solidObjectsLayer) != null)
@@ -140,9 +146,54 @@ public class playerControllor : MonoBehaviour
             return false;
         }
         return true;
+    }*/
+    private bool isWalkerble(Vector3 targetPos)
+    {
+        
+        Collider[] hitCollider = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, solidObjectsLayer);
+        if (hitCollider.Length > 0)
+        {
+            bumbSound.Play();
+            return false;
+        }
+        return true;
     }
 
-        void SetFaceingDirection()
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (m_Started)
+        {
+            Vector3 test = transform.position;
+            if (playerFaceing == MoveDirection.Up)
+            {
+                test.z += 1;
+            }
+            else if (playerFaceing == MoveDirection.Down)
+            {
+                test.z -= 1;
+            }
+            else if (playerFaceing == MoveDirection.Left)
+            {
+                test.x -= 1;
+            }
+            else if (playerFaceing == MoveDirection.Right)
+            {
+                test.x += 1;
+            }
+
+            
+            Gizmos.DrawWireCube(test, new Vector3(0.3f, 0.3f, 0.3f));
+        }
+    }
+
+
+
+
+
+
+
+    void SetFaceingDirection()
     {
 
         if (input.x == 1f)
@@ -153,11 +204,11 @@ public class playerControllor : MonoBehaviour
         {
             playerFaceing = MoveDirection.Left;
         }
-        if (input.y == 1f)
+        if (input.z == 1f)
         {
             playerFaceing = MoveDirection.Up;
         }
-        if (input.y == -1f)
+        if (input.z == -1f)
         {
             playerFaceing = MoveDirection.Down;
         }
