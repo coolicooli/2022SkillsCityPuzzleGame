@@ -7325,7 +7325,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fa9e194930ac734418b96ef60cc737e8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4b77fb922a880f14c845bbc041c44126, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.157
   m_Pitch: 1
@@ -7655,7 +7655,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -7873,6 +7873,7 @@ MonoBehaviour:
   solidObjectsLayer:
     serializedVersion: 2
     m_Bits: 64
+  SMWalkSound: {fileID: 1872902116}
 --- !u!65 &1928776348
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class SlimonController : MonoBehaviour
     private Camera mainCam;
     private Transform spriteTransform;
 
+    public AudioSource SMWalkSound;
+
     void Start()
     {
         animator = playerSprite.GetComponent<Animator>();
@@ -43,8 +45,11 @@ public class SlimonController : MonoBehaviour
     {
         if (!isMoving )
         {
+            SMWalkSound.Play();
+
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
+            
             
             if (input.y != 0)
             {
@@ -81,7 +86,6 @@ public class SlimonController : MonoBehaviour
                     targetPos += positionChange;
                     StartCoroutine(Move(targetPos));
                 }
-
             }
             animator.SetBool("isMoving", isMoving);
         }
