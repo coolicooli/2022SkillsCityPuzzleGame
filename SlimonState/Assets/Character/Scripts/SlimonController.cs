@@ -45,7 +45,7 @@ public class SlimonController : MonoBehaviour
     {
         if (!isMoving )
         {
-            SMWalkSound.Play();
+            
 
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
@@ -82,6 +82,7 @@ public class SlimonController : MonoBehaviour
                 var test = targetPos + positionChange;
                 if (isWalkable(test))
                 {
+                    SMWalkSound.Play();
                     Debug.Log("Walkin");
                     targetPos += positionChange;
                     StartCoroutine(Move(targetPos));
