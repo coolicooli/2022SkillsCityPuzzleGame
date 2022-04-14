@@ -5,7 +5,7 @@ using TMPro;
 
 public class playerCollectsKeypieces : MonoBehaviour
 {
-    public TextMeshProUGUI Message;
+   // public TextMeshProUGUI Message;
     int numberOfPiecesCollected;
     // Start is called before the first frame update
     void Start()
@@ -24,19 +24,19 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(other.gameObject.tag == "piece1")
         {
             other.gameObject.SetActive(false);
-            Message.text = "You collected Key-piece";
+           // Message.text = "You collected Key-piece";
             numberOfPiecesCollected++;
         }
         if(other.gameObject.tag == "piece2")
         {
             other.gameObject.SetActive(false);
-            Message.text = "You collected Key-piece";
+            //Message.text = "You collected Key-piece";
             numberOfPiecesCollected++;
         }
         if(other.gameObject.tag == "piece3")
         {
             other.gameObject.SetActive(false);
-            Message.text = "You collected Key-piece"; 
+           // Message.text = "You collected Key-piece"; 
             numberOfPiecesCollected++;
         }
     }
