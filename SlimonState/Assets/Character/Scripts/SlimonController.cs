@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlimonController : MonoBehaviour
 {
-     public enum MoveDirection
+    public enum MoveDirection
     {
         Up = 0,
         Down = 1,
@@ -12,23 +12,26 @@ public class SlimonController : MonoBehaviour
         Right = 3,
         None = 4
     }
-    
+
     public float walkSpeed = 4;
     private bool isMoving;
     private Vector3 input;
     private Animator animator;
-    [SerializeField]
-    private GameObject playerSprite;
-    public AudioSource bumbSound;
+    public AudioSource bumpSound;
     public LayerMask solidObjectsLayer;
     float delay = 0.15f;
     float remainingDelay;
     bool m_Started;
-    Vector3 positionChange; 
+    Vector3 positionChange;
     MoveDirection playerFacing = MoveDirection.Down;
     MoveDirection prevPlayerFacing;
     private Camera mainCam;
     private Transform spriteTransform;
+    [Header("Inherited")]
+    [SerializeField]
+    private GameObject playerSprite;
+    [SerializeField]
+    private GameObject pivotObj;
 
     void Start()
     {
@@ -41,16 +44,16 @@ public class SlimonController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (!isMoving )
+        if (!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
-            
+
             if (input.y != 0)
             {
                 input.x = 0;
             }
-            
+
 
             if (input != Vector3.zero)
             {
@@ -70,14 +73,11 @@ public class SlimonController : MonoBehaviour
 
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
-                var targetPos = transform.position;
-                positionChange = Vector3.zero;
-                positionChange.x += input.x;
-                positionChange.z += input.y;
-                var test = targetPos + positionChange;
+                Vector3 targetPos = transform.position;
+                positionChange = OrientatedInput();
+                Vector3 test = targetPos + positionChange;
                 if (isWalkable(test))
                 {
-                    Debug.Log("Walkin");
                     targetPos += positionChange;
                     StartCoroutine(Move(targetPos));
                 }
@@ -90,6 +90,33 @@ public class SlimonController : MonoBehaviour
     void LateUpdate()
     {
         playerSprite.transform.LookAt(mainCam.transform);
+    }
+
+    Vector3 OrientatedInput()
+    {
+        Vector3 returnVec = new Vector3();
+        var cameraDirection = pivotObj.GetComponent<CameraRotate>().cameraDirection;
+        if (cameraDirection == CameraRotate.CameraFacing.North)
+        {
+            returnVec.x += input.x;
+            returnVec.z += input.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.East)
+        {
+            returnVec.x += input.y;
+            returnVec.z -= input.x;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.South)
+        {
+            returnVec.x -= input.x;
+            returnVec.z -= input.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.West)
+        {
+            returnVec.x -= input.y;
+            returnVec.z += input.x;
+        }
+        return returnVec;
     }
     IEnumerator Move(Vector3 targetPos)
     {
@@ -110,7 +137,7 @@ public class SlimonController : MonoBehaviour
         Collider[] hitCollider = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, solidObjectsLayer);
         if (hitCollider.Length > 0)
         {
-            bumbSound.Play();
+            bumpSound.Play();
             return false;
         }
         return true;
@@ -139,7 +166,7 @@ public class SlimonController : MonoBehaviour
                 test.x += 1;
             }
 
-            
+
             Gizmos.DrawWireCube(test, new Vector3(0.3f, 0.3f, 0.3f));
         }
     }
