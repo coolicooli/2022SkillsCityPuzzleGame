@@ -11,7 +11,7 @@ public class CameraRotate : MonoBehaviour
         South = 2,
         West = 3
     }
-    private bool cameraTurn = false;
+    public bool cameraTurn = false;
     private Camera mainCam;
     [SerializeField]
     private float rotationSpeed = 90.0f;
@@ -31,7 +31,6 @@ public class CameraRotate : MonoBehaviour
         Vector3 cameraForward = mainCam.transform.forward;
         cameraForward.x = Mathf.Round(cameraForward.x);
         cameraForward.z = Mathf.Round(cameraForward.z);
-        Debug.Log(cameraForward);
         if (cameraForward.x == 0.0f)
         {
             if (cameraForward.z > 0.0f)
@@ -54,7 +53,6 @@ public class CameraRotate : MonoBehaviour
                 cameraDirection = CameraFacing.West;
             }
         }
-        Debug.Log(cameraDirection);
     }
 
     void LateUpdate()
@@ -65,60 +63,94 @@ public class CameraRotate : MonoBehaviour
             {
                 //Negative Z
                 cameraTurn = true;
-                StartCoroutine(TurnCameraLeft());
+                StartCoroutine(TurnCamera(true));
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
                 //Positive Z
                 cameraTurn = true;
-                StartCoroutine(TurnCameraRight());
+                StartCoroutine(TurnCamera(false));
             }
         }
     }
 
-    IEnumerator TurnCameraLeft()
-    {
-        float targetZRot = transform.rotation.z - 90.0f;
-        float currentRotation = 0.0f;
-        while (currentRotation >= targetZRot)
-        {
-            transform.Rotate(Vector3.forward * Time.deltaTime * -rotationSpeed);
-            currentRotation += 1 * Time.deltaTime * -rotationSpeed;
-            yield return null;
-        }
-        RoundZAngle();
-        cameraTurn = false;
-        yield return null;
-    }
-
-    IEnumerator TurnCameraRight()
+    public IEnumerator TurnCamera(bool isLeft)
     {
         float targetZRot = transform.rotation.z + 90.0f;
         float currentRotation = 0.0f;
         while (currentRotation <= targetZRot)
         {
-            transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
+            if (isLeft)
+                transform.Rotate(Vector3.forward * Time.deltaTime * -rotationSpeed);
+            else if (!isLeft)
+                transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
             currentRotation += 1 * Time.deltaTime * rotationSpeed;
             yield return null;
         }
-        RoundZAngle();
+        RoundZAngle(90.0f);
         cameraTurn = false;
         yield return null;
     }
 
-    void RoundAngles(float roundTo)
+    public IEnumerator TurnCameraFlat()
+    {
+        float targetRot = 40.0f;
+        float currentRotation = 0.0f;
+        while (currentRotation <= targetRot)
+        {
+            transform.Rotate(Vector3.left * Time.deltaTime * rotationSpeed);
+            currentRotation += 1 * Time.deltaTime * rotationSpeed;
+            yield return null;
+        }
+        RoundXAngle(40.0f);
+        RoundYAngle(40.0f);
+        cameraTurn = false;
+        yield return null;
+    }
+
+    public IEnumerator TurnCameraAngled()
+    {
+        float targetRot = 40.0f;
+        float currentRotation = 0.0f;
+        while (currentRotation <= targetRot)
+        {
+            transform.Rotate(Vector3.right * Time.deltaTime * rotationSpeed);
+            currentRotation += 1 * Time.deltaTime * rotationSpeed;
+            yield return null;
+        }
+        RoundXAngle(40.0f);
+        RoundYAngle(40.0f);
+        cameraTurn = false;
+        yield return null;
+    }
+
+    private void RoundAngles(float roundAngle)
     {
         Vector3 roundedVec = transform.localEulerAngles;
-        roundedVec.x = Mathf.Round(roundedVec.x / roundTo) * roundTo;
-        roundedVec.x = Mathf.Round(roundedVec.x / roundTo) * roundTo;
-        roundedVec.x = Mathf.Round(roundedVec.x / roundTo) * roundTo;
+        roundedVec.x = Mathf.Round(roundedVec.x / roundAngle) * roundAngle;
+        roundedVec.x = Mathf.Round(roundedVec.x / roundAngle) * roundAngle;
+        roundedVec.x = Mathf.Round(roundedVec.x / roundAngle) * roundAngle;
         transform.localEulerAngles = roundedVec;
     }
 
-        void RoundZAngle()
+    private void RoundXAngle(float roundAngle)
     {
         Vector3 roundedVec = transform.localEulerAngles;
-        roundedVec.z = Mathf.Round(roundedVec.z / 90) * 90;
+        roundedVec.x = Mathf.Round(roundedVec.x / roundAngle) * roundAngle;
+        transform.localEulerAngles = roundedVec;
+    }
+
+    private void RoundYAngle(float roundAngle)
+    {
+        Vector3 roundedVec = transform.localEulerAngles;
+        roundedVec.y = Mathf.Round(roundedVec.y / roundAngle) * roundAngle;
+        transform.localEulerAngles = roundedVec;
+    }
+
+    private void RoundZAngle(float roundAngle)
+    {
+        Vector3 roundedVec = transform.localEulerAngles;
+        roundedVec.z = Mathf.Round(roundedVec.z / roundAngle) * roundAngle;
         transform.localEulerAngles = roundedVec;
     }
 }
