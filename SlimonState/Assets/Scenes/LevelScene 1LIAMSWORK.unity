@@ -7394,11 +7394,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 4
+  bumpSound: {fileID: 1928776346}
+  currentState: 0
   playerSprite: {fileID: 168007187}
-  bumbSound: {fileID: 1928776346}
+  pivotObj: {fileID: 682291080}
   solidObjectsLayer:
     serializedVersion: 2
     m_Bits: 64
+  climbableObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!65 &1928776348
 BoxCollider:
   m_ObjectHideFlags: 0
