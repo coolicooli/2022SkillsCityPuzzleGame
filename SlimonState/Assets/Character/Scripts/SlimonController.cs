@@ -47,15 +47,13 @@ public class SlimonController : MonoBehaviour
     private GameObject playerSprite;
     [SerializeField]
     private GameObject pivotObj;
+    public AudioSource SMWalkSound;
 
     [Header("Layers")]
     [SerializeField]
     private LayerMask solidObjectsLayer;
     [SerializeField]
     private LayerMask climbableObjectsLayer;
-
-    public AudioSource SMWalkSound;
-
     void Start()
     {
         animator = playerSprite.GetComponent<Animator>();
@@ -131,10 +129,9 @@ public class SlimonController : MonoBehaviour
 
                 Vector3 checkDownPos = targetPos + Vector3.down;
                 CollisionResults collDownTest = CollisionTest(checkDownPos);
+                SMWalkSound.Play();
                 if (isClimbing && collDownTest == CollisionResults.None)
                 {
-                    SMWalkSound.Play();
-                    Debug.Log("Walkin");
                     positionChange = ClimbingInput();
                 }
                 else
