@@ -9,6 +9,7 @@ EditorUserSettings:
       value: 2242470311464669020d0714226c691912121765082d2b3f620d183eeddf646addca37e0e9193e2c2d17fd394a2b0f36e613
       flags: 0
     RecentlyUsedScenePath-1:
+<<<<<<< HEAD
       value: 2242470311464669020d0714226c691912121765082d2b3f620d183eeddf646cddd13fede23513352f07cc3d142a142df7441c05ff1f13
       flags: 0
     RecentlyUsedScenePath-2:
@@ -30,6 +31,20 @@ EditorUserSettings:
       value: 22424703114646680e0b0227036c7315001214192f2d28350e211c21e3e3203df0a923e7ee2e26
       flags: 0
     RecentlyUsedScenePath-8:
+=======
+      value: 22424703114646680e0b0227036c7c1817051929382d3404283a0900e1e53a3dacf238e0f323
+      flags: 0
+    RecentlyUsedScenePath-2:
+      value: 22424703114646680e0b0227036c7315001214192f2d28356d785d1fcbc1190bd5c804c2a92f31352d1b
+      flags: 0
+    RecentlyUsedScenePath-3:
+      value: 22424703114646680e0b0227036c7315001214192f2d28356d785326ece92021
+      flags: 0
+    RecentlyUsedScenePath-4:
+      value: 22424703114646680e0b0227036c7315001214192f2d28357f67083debf42d
+      flags: 0
+    RecentlyUsedScenePath-5:
+>>>>>>> AudioDev2
       value: 22424703114646680e0b0227036c7315001214192f2d2835633c133af6f9
       flags: 0
     RecentlyUsedScenePath-9:

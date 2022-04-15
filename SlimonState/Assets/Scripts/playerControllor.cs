@@ -15,6 +15,7 @@ public class playerControllor : MonoBehaviour
     public AudioSource bumbSound;
     public LayerMask solidObjectsLayer;
     public GameObject box;
+    public AudioSource SMWalkSound;
    
     float delay = 0.15f;
     float remainingDelay;
@@ -62,7 +63,7 @@ public class playerControllor : MonoBehaviour
 
         if (!isMoving )
         {
-            
+            SMWalkSound.Play();
             //CheckRunning();
 
 

@@ -54,6 +54,8 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private LayerMask climbableObjectsLayer;
 
+    public AudioSource SMWalkSound;
+
     void Start()
     {
         animator = playerSprite.GetComponent<Animator>();
@@ -131,6 +133,8 @@ public class SlimonController : MonoBehaviour
                 CollisionResults collDownTest = CollisionTest(checkDownPos);
                 if (isClimbing && collDownTest == CollisionResults.None)
                 {
+                    SMWalkSound.Play();
+                    Debug.Log("Walkin");
                     positionChange = ClimbingInput();
                 }
                 else
@@ -156,25 +160,6 @@ public class SlimonController : MonoBehaviour
                         StartCoroutine(cameraRot.TurnCameraAngled());
                     }
                 }
-                else if (collForwardTest == CollisionResults.SolidObject)
-                {
-                    bumpSound.Play();
-                }
-                else if (collForwardTest == CollisionResults.ClimbableObject)
-                {
-                    if (pivotObj.transform.localEulerAngles.x == 0.0f & pivotObj.transform.localEulerAngles.y == 0.0f)
-                    {
-                        if (input.y > 0.0f && currentState == States.Slime)
-                        {
-                            cameraRot.cameraTurn = true;
-                            isClimbing = true;
-                            StartCoroutine(Move(transform.position + Vector3.up));
-                            StartCoroutine(cameraRot.TurnCameraFlat());
-                        }
-                    }
-                }
-
-
 
             }
 
