@@ -74,31 +74,31 @@ public class SlimonController : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentState == States.Slime)
+            {
+                currentState = States.Solid;
+                isMoving = false;
+                isClimbing = false;
+                walkSpeed = 1.0f;
+            }
+            else if (currentState == States.Solid)
+            {
+                currentState = States.Liquid;
+                isMoving = true;
+                walkSpeed = 0.0f;
+            }
+            else if (currentState == States.Liquid)
+            {
+                currentState = States.Slime;
+                isMoving = false;
+                walkSpeed = 4.0f;
+            }
+        }
+
         if (!isMoving && !cameraRot.cameraTurn)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (currentState == States.Slime)
-                {
-                    currentState = States.Solid;
-                    isMoving = false;
-                    isClimbing = false;
-                    walkSpeed = 1.0f;
-                }
-                else if (currentState == States.Solid)
-                {
-                    currentState = States.Liquid;
-                    isMoving = true;
-                    walkSpeed = 0.0f;
-                }
-                else if (currentState == States.Liquid)
-                {
-                    currentState = States.Slime;
-                    isMoving = false;
-                    walkSpeed = 4.0f;
-                }
-            }
-
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
@@ -123,10 +123,7 @@ public class SlimonController : MonoBehaviour
                     return;
                 }
 
-                animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
                 Vector3 targetPos = transform.position;
-
                 Vector3 checkDownPos = targetPos + Vector3.down;
                 CollisionResults collDownTest = CollisionTest(checkDownPos);
                 SMWalkSound.Play();
@@ -155,6 +152,23 @@ public class SlimonController : MonoBehaviour
                     {
                         cameraRot.cameraTurn = true;
                         StartCoroutine(cameraRot.TurnCameraAngled());
+                    }
+                }
+                else if (collForwardTest == CollisionResults.SolidObject)
+                {
+                    bumpSound.Play();
+                }
+                else if (collForwardTest == CollisionResults.ClimbableObject)
+                {
+                    if (pivotObj.transform.localEulerAngles.x == 0.0f & pivotObj.transform.localEulerAngles.y == 0.0f)
+                    {
+                        if (input.y > 0.0f && currentState == States.Slime)
+                        {
+                            cameraRot.cameraTurn = true;
+                            isClimbing = true;
+                            StartCoroutine(Move(transform.position + Vector3.up));
+                            StartCoroutine(cameraRot.TurnCameraFlat());
+                        }
                     }
                 }
 
