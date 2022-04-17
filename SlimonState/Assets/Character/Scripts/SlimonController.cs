@@ -134,31 +134,25 @@ public class SlimonController : MonoBehaviour
                 else
                 {
                     positionChange = OrientatedInput();
-                }
-
-                Vector3 checkForwardPos = targetPos + positionChange;
-                CollisionResults collForwardTest = CollisionTest(checkForwardPos);
-
-                Vector3 checkWallPos = targetPos;
-                checkWallPos.x += Mathf.Round(mainCam.transform.forward.x);
-                checkWallPos.z += Mathf.Round(mainCam.transform.forward.z);
-                CollisionResults collWallTest = CollisionTest(checkWallPos);
-
-                if (collForwardTest == CollisionResults.None)
-                {
-                    targetPos += positionChange;
-                    StartCoroutine(Move(targetPos));
-                    if ((pivotObj.transform.localEulerAngles.x != 0.0f | pivotObj.transform.localEulerAngles.y != 0.0f) & collWallTest != CollisionResults.ClimbableObject)
+                    if ((pivotObj.transform.localEulerAngles.x != 0.0f | pivotObj.transform.localEulerAngles.y != 0.0f))
                     {
                         cameraRot.cameraTurn = true;
                         StartCoroutine(cameraRot.TurnCameraAngled());
                     }
                 }
-                else if (collForwardTest == CollisionResults.SolidObject)
+
+                Vector3 checkForwardPos = targetPos + positionChange;
+                CollisionResults collDirectionTest = CollisionTest(checkForwardPos);
+                if (collDirectionTest == CollisionResults.None)
+                {
+                    targetPos += positionChange;
+                    StartCoroutine(Move(targetPos));
+                }
+                else if (collDirectionTest == CollisionResults.SolidObject)
                 {
                     bumpSound.Play();
                 }
-                else if (collForwardTest == CollisionResults.ClimbableObject)
+                else if (collDirectionTest == CollisionResults.ClimbableObject)
                 {
                     if (pivotObj.transform.localEulerAngles.x == 0.0f & pivotObj.transform.localEulerAngles.y == 0.0f)
                     {
