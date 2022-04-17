@@ -48,6 +48,7 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
+    public gridtestScript gridtestscript;
 
     [Header("Layers")]
     [SerializeField]
@@ -217,6 +218,7 @@ public class SlimonController : MonoBehaviour
         }
         transform.position = targetPos;
         isMoving = false;
+        gridtestscript.CalculatePathFinding();
         yield return null;
     }
 

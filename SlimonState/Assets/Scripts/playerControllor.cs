@@ -16,7 +16,8 @@ public class playerControllor : MonoBehaviour
     public LayerMask solidObjectsLayer;
     public GameObject box;
     public AudioSource SMWalkSound;
-   
+    
+
     float delay = 0.15f;
     float remainingDelay;
     bool incTimer = false;
@@ -128,6 +129,8 @@ public class playerControllor : MonoBehaviour
         transform.position = targetPos;
         isMoving = false;
         
+
+
         yield return null;
 
     }

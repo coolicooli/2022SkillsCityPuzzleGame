@@ -9,7 +9,7 @@ public class EnermypathFinder : MonoBehaviour
     Animator enermyAnim;
     public LayerMask solidObjectsLayer;
     private bool isMoving;
-    public float moveSpeed = 4;
+    public float moveSpeed = 3;
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
     public GameObject player;

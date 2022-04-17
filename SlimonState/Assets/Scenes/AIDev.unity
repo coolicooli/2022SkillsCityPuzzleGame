@@ -8377,7 +8377,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899906370}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8938,6 +8938,7 @@ MonoBehaviour:
   playerSprite: {fileID: 650373320}
   pivotObj: {fileID: 275026842}
   SMWalkSound: {fileID: 2089641647}
+  gridtestscript: {fileID: 2079370639}
   solidObjectsLayer:
     serializedVersion: 2
     m_Bits: 64
