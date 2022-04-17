@@ -23,11 +23,6 @@ public class playerControllor : MonoBehaviour
     UnityEngine.Object collidedObject;
     //bool isRunning;
     bool m_Started;
-    float worldWidth;
-    float worldHeight;
-
-
-
 
     Vector3 positionChange;
     Vector3 prevPositionChange;
@@ -50,9 +45,7 @@ public class playerControllor : MonoBehaviour
         animator = playerSprite.GetComponent<Animator>();
        
         m_Started = true;
-        worldWidth = box.GetComponent<MeshRenderer>().bounds.size.x;
-        worldHeight = box.GetComponent<MeshRenderer>().bounds.size.y;
-        Debug.Log(worldWidth + "= width,  " + worldHeight + " = height");
+        
     }
 
     // Update is called once per frame
@@ -109,6 +102,7 @@ public class playerControllor : MonoBehaviour
 
                     
                     StartCoroutine(Move(targetPos));
+
                 }
 
             }

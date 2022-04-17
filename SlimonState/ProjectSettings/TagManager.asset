@@ -8,6 +8,7 @@ TagManager:
   - piece1
   - piece2
   - piece3
+  - collisionMap
   layers:
   - Default
   - TransparentFX
