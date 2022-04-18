@@ -31,6 +31,7 @@ public class SlimonController : MonoBehaviour
     private Transform spriteTransform;
 
     public AudioSource SMWalkSound;
+    public ParticleSystem PSSemiMatter;
 
     void Start()
     {
@@ -167,5 +168,10 @@ public class SlimonController : MonoBehaviour
         {
             playerFacing = MoveDirection.Down;
         }
+    }
+
+    void CreatePSSemiMatter()
+    {
+        PSSemiMatter.Play();
     }
 }
