@@ -10,6 +10,7 @@ TagManager:
   - piece3
   - heartInner
   - heartOuter
+  - collisionMap
   layers:
   - Default
   - TransparentFX
