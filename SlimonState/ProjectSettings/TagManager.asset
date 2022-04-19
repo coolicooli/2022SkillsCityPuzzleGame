@@ -8,6 +8,8 @@ TagManager:
   - piece1
   - piece2
   - piece3
+  - heartInner
+  - heartOuter
   layers:
   - Default
   - TransparentFX
