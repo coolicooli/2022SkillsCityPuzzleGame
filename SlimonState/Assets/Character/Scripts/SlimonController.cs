@@ -42,6 +42,7 @@ public class SlimonController : MonoBehaviour
     private Camera mainCam;
     private CameraRotate cameraRot;
     public States currentState;
+    private Rigidbody playerRigidbody;
     [Header("Inherited")]
     [SerializeField]
     private GameObject playerSprite;
@@ -60,6 +61,7 @@ public class SlimonController : MonoBehaviour
         animator = playerSprite.GetComponent<Animator>();
         mainCam = Camera.main;
         cameraRot = pivotObj.GetComponent<CameraRotate>();
+        playerRigidbody = GetComponent<Rigidbody>();
         hasStarted = true;
     }
 
@@ -68,11 +70,11 @@ public class SlimonController : MonoBehaviour
     {
         if (isClimbing)
         {
-            GetComponent<Rigidbody>().useGravity = false;
+
         }
-        else
+        else if (!isClimbing)
         {
-            GetComponent<Rigidbody>().useGravity = true;
+
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

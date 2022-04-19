@@ -14,6 +14,11 @@ public class EnermypathFinder : MonoBehaviour
     private List<Vector3> pathVectorList;
     public GameObject player;
     public Grid grid;
+    private CameraRotate cameraRot;
+
+    [Header("Inhereted")]   
+    [SerializeField]
+    private GameObject pivotObj;
 
 
     public enum MoveDirection
@@ -32,6 +37,7 @@ public class EnermypathFinder : MonoBehaviour
     {
         enermyAnim = enermySprite.GetComponent<Animator>();
         Debug.Log(transform.localPosition + ":  TransformPos");
+        cameraRot = pivotObj.GetComponent<CameraRotate>();
     }
 
     // Update is called once per frame
@@ -54,11 +60,12 @@ public class EnermypathFinder : MonoBehaviour
             {
                 
                 Vector3 moveDir = (tragetpositionAjusted - transform.localPosition).normalized;
-                Debug.Log(moveDir);
+                Debug.Log("Move Direction: " + moveDir);
 
                 float distanceBefore = Vector3.Distance(transform.localPosition, tragetpositionAjusted);
-                enermyAnim.SetFloat("moveX", moveDir.x);
-                enermyAnim.SetFloat("moveY", moveDir.y);
+                Vector3 spriteOrientateAnim = OrientateSprite(moveDir);
+                enermyAnim.SetFloat("moveX", spriteOrientateAnim.x);
+                enermyAnim.SetFloat("moveY", spriteOrientateAnim.y);
                 enermyAnim.SetBool("isMoving", true);
                 transform.localPosition = transform.localPosition + moveDir * moveSpeed * Time.deltaTime;
             }
@@ -76,6 +83,33 @@ public class EnermypathFinder : MonoBehaviour
         {
             enermyAnim.SetBool("isMoving", false);
         }
+    }
+
+    Vector3 OrientateSprite(Vector3 moveDir)
+    {
+        Vector3 returnVec = new Vector3();
+        var cameraDirection = cameraRot.cameraDirection;
+        if (cameraDirection == CameraRotate.CameraFacing.North)
+        {
+            returnVec.x -= moveDir.x;
+            returnVec.y += moveDir.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.East)
+        {
+            returnVec.x += moveDir.y;
+            returnVec.y += moveDir.x;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.South)
+        {
+            returnVec.x += moveDir.x;
+            returnVec.y -= moveDir.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.West)
+        {
+            returnVec.x -= moveDir.y;
+            returnVec.y -= moveDir.x;
+        }
+        return returnVec;
     }
     private void StopMoving()
     {
