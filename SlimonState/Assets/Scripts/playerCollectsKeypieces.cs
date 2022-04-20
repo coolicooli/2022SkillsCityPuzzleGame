@@ -11,10 +11,12 @@ public class playerCollectsKeypieces : MonoBehaviour
     [Header("Inhereted")]
     [SerializeField]
     private GameObject pieceCountUI;
+    int lastCollectedKey;
 
     void Start()
     {
         numberOfPiecesCollected = 0;
+        lastCollectedKey = 0;
     }
 
     // Update is called once per frame
@@ -24,11 +26,32 @@ public class playerCollectsKeypieces : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "keyPiece")
+        if(other.gameObject.tag == "piece1")
         {
-            other.gameObject.SetActive(false);
-            numberOfPiecesCollected++;
+            lastCollectedKey = 1;
         }
+        else if (other.gameObject.tag == "piece2")
+        {
+            lastCollectedKey = 2;
+        }
+        else if (other.gameObject.tag == "piece3")
+        {
+            lastCollectedKey = 3;
+        }
+        else
+        {
+            return;
+        }
+        other.gameObject.SetActive(false);
+        numberOfPiecesCollected++;
     }
-    
+    public int getNumberOfPiecesCollected()
+    {
+        return numberOfPiecesCollected;
+    }
+    public int getLastCollectedKey()
+    {
+        return lastCollectedKey;
+    }
+
 }

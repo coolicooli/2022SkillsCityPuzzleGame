@@ -7,7 +7,6 @@ public class EnermypathFinder : MonoBehaviour
     public GameObject enermyObject;
     public GameObject enermySprite;
     Animator enermyAnim;
-    public LayerMask solidObjectsLayer;
     private bool isMoving;
     public float moveSpeed = 3;
     private int currentPathIndex;
@@ -19,6 +18,7 @@ public class EnermypathFinder : MonoBehaviour
     [Header("Inhereted")]   
     [SerializeField]
     private GameObject pivotObj;
+    Vector3 rotation;
 
 
     public enum MoveDirection
@@ -45,6 +45,10 @@ public class EnermypathFinder : MonoBehaviour
     {
 
         HandleMovement();
+        rotation = new Vector3(enermySprite.transform.eulerAngles.x, pivotObj.transform.eulerAngles.y, pivotObj.transform.eulerAngles.z);
+        enermySprite.transform.eulerAngles = rotation;
+
+
 
     }
     void HandleMovement()
@@ -91,22 +95,22 @@ public class EnermypathFinder : MonoBehaviour
         var cameraDirection = cameraRot.cameraDirection;
         if (cameraDirection == CameraRotate.CameraFacing.North)
         {
-            returnVec.x -= moveDir.x;
-            returnVec.y += moveDir.y;
+            returnVec.x = moveDir.x;
+            returnVec.y = moveDir.y;
         }
         else if (cameraDirection == CameraRotate.CameraFacing.East)
         {
-            returnVec.x += moveDir.y;
-            returnVec.y += moveDir.x;
+            returnVec.x -= moveDir.y;
+            returnVec.y = moveDir.x;
         }
         else if (cameraDirection == CameraRotate.CameraFacing.South)
         {
-            returnVec.x += moveDir.x;
+            returnVec.x -= moveDir.x;
             returnVec.y -= moveDir.y;
         }
         else if (cameraDirection == CameraRotate.CameraFacing.West)
         {
-            returnVec.x -= moveDir.y;
+            returnVec.x = moveDir.y;
             returnVec.y -= moveDir.x;
         }
         return returnVec;

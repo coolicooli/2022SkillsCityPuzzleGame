@@ -56,6 +56,11 @@ public class SlimonController : MonoBehaviour
     private LayerMask solidObjectsLayer;
     [SerializeField]
     private LayerMask climbableObjectsLayer;
+    [SerializeField]
+    GameManagerScriptSS gameManager;
+
+    bool teleport;
+
     void Start()
     {
         animator = playerSprite.GetComponent<Animator>();
@@ -63,6 +68,22 @@ public class SlimonController : MonoBehaviour
         cameraRot = pivotObj.GetComponent<CameraRotate>();
         playerRigidbody = GetComponent<Rigidbody>();
         hasStarted = true;
+        teleport = false;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "acid" || other.gameObject.tag == "enermy")
+        {
+            teleport = true;
+            Debug.Log("collide");
+            gameManager.lifeLost();
+            teleport = true;
+
+        }
+    }
+    public bool getIsMoving()
+    {
+        return isMoving;
     }
 
     // Update is called once per frame
@@ -223,6 +244,13 @@ public class SlimonController : MonoBehaviour
         isMoving = true;
         while ((targetPos - transform.position).sqrMagnitude > 0.000001f)
         {
+            if (teleport)
+            {
+                teleport = false;
+                isMoving = false;
+                gridtestscript.CalculatePathFinding();
+                yield break;
+            }
             transform.position = Vector3.MoveTowards(transform.position, targetPos, walkSpeed * Time.deltaTime);
             yield return null;
         }
