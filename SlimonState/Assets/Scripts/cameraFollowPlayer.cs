@@ -11,7 +11,6 @@ public class cameraFollowPlayer : MonoBehaviour
     public GameObject pivot;
     bool turnning;
     bool onWall;
-    
     // Start is called before the first frame update
     void Start()
     {

@@ -5,10 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Teleporter
-  - collisionMap
-  - keyPiece
-  - acid
-  - enermy
+  - piece1
+  - piece2
+  - piece3
   layers:
   - Default
   - TransparentFX
@@ -17,8 +16,8 @@ TagManager:
   - Water
   - UI
   - solidObjects
-  - climbableObjects
   - player
+  - 
   - 
   - 
   - 

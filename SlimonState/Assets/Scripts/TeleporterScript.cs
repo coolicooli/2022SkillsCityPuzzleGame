@@ -4,55 +4,8 @@ using UnityEngine;
 
 public class TeleporterScript : MonoBehaviour
 {
-
-    
-    [SerializeField] Transform teleporter2;
-
-    [SerializeField] GameObject player;
-    private bool isUsable = true;
-    private bool isPressed;
-
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.T))
-        {
-            isPressed = true;
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (isUsable == true)
-        {
-            if(isPressed == true)
-            {
-               StartCoroutine(Teleport());
-                isPressed = false;
-                isUsable = false;
-            }
-
-        }
-    }
-
-    IEnumerator Teleport()
-    {
-        yield return new WaitForSeconds(1);
-        player.transform.position = new Vector3(
-            teleporter2.transform.position.x,
-            teleporter2.transform.position.y,
-            teleporter2.transform.position.z);
-        teleporter2.GetComponent<TeleporterScript>().isUsable = false;
-        isUsable = false;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        isUsable = true;
-        isPressed = false;
-    }
-}
-   /* public Transform thisPortal;
+    public Transform thisPortal;
     public Transform targetPortal;
-    private bool isUsable = true;
 
     private void Start()
     {
@@ -60,20 +13,9 @@ public class TeleporterScript : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if (isUsable == true)
+        if (col.tag == "Player")
         {
-            yield return new WaitForSeconds(3);
-            Debug.Log("col");
             col.transform.position = targetPortal.GetChild(0).transform.position;
-            isUsable = false;
-            targetPortal.GetComponent<TeleporterScript>().isUsable = false;
         }
-
     }
-    private void OnTriggerExit(Collider other)
-    {
-        isUsable = true;
-        other.transform.
-    }
-   */
-
+}
