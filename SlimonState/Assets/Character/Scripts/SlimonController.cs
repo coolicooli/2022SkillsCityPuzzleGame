@@ -49,6 +49,7 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
+    public ParticleSystem SemiMatterPS;
     public gridtestScript gridtestscript;
 
     [Header("Layers")]
