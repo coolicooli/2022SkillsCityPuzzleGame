@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlimonController : MonoBehaviour
 {
-     public enum MoveDirection
+    private enum MoveDirection
     {
         Up = 0,
         Down = 1,
@@ -12,56 +12,129 @@ public class SlimonController : MonoBehaviour
         Right = 3,
         None = 4
     }
-    
+
+    private enum CollisionResults
+    {
+        None = 0,
+        SolidObject = 1,
+        ClimbableObject = 2
+    }
+
+    public enum States
+    {
+        Slime = 0,
+        Liquid = 1,
+        Solid = 2
+    }
+
     public float walkSpeed = 4;
     private bool isMoving;
+    private bool isClimbing;
+    private bool hasStarted = false;
     private Vector3 input;
     private Animator animator;
-    [SerializeField]
-    private GameObject playerSprite;
-    public AudioSource bumbSound;
-    public LayerMask solidObjectsLayer;
+    public AudioSource bumpSound;
     float delay = 0.15f;
     float remainingDelay;
-    bool m_Started;
-    Vector3 positionChange; 
+    Vector3 positionChange;
     MoveDirection playerFacing = MoveDirection.Down;
     MoveDirection prevPlayerFacing;
     private Camera mainCam;
-    private Transform spriteTransform;
-
+    private CameraRotate cameraRot;
+    public States currentState;
+    private Rigidbody playerRigidbody;
+    [Header("Inherited")]
+    [SerializeField]
+    private GameObject playerSprite;
+    [SerializeField]
+    private GameObject pivotObj;
     public AudioSource SMWalkSound;
-    public ParticleSystem PSSemiMatter;
+    public gridtestScript gridtestscript;
+
+    [Header("Layers")]
+    [SerializeField]
+    private LayerMask solidObjectsLayer;
+    [SerializeField]
+    private LayerMask climbableObjectsLayer;
+    [SerializeField]
+    GameManagerScriptSS gameManager;
+
+    bool teleport;
 
     void Start()
     {
         animator = playerSprite.GetComponent<Animator>();
-        m_Started = true;
         mainCam = Camera.main;
-        spriteTransform = playerSprite.GetComponent<Transform>();
+        cameraRot = pivotObj.GetComponent<CameraRotate>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        hasStarted = true;
+        teleport = false;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "acid" || other.gameObject.tag == "enermy")
+        {
+            teleport = true;
+            Debug.Log("collide");
+            gameManager.lifeLost();
+            teleport = true;
+
+        }
+    }
+    public bool getIsMoving()
+    {
+        return isMoving;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (!isMoving )
+        if (isClimbing)
         {
-            
 
+        }
+        else if (!isClimbing)
+        {
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentState == States.Slime)
+            {
+                currentState = States.Solid;
+                isMoving = false;
+                isClimbing = false;
+                walkSpeed = 1.0f;
+            }
+            else if (currentState == States.Solid)
+            {
+                currentState = States.Liquid;
+                isMoving = true;
+                walkSpeed = 0.0f;
+            }
+            else if (currentState == States.Liquid)
+            {
+                currentState = States.Slime;
+                isMoving = false;
+                walkSpeed = 4.0f;
+            }
+        }
+
+        if (!isMoving && !cameraRot.cameraTurn)
+        {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
-            
-            
+
             if (input.y != 0)
             {
                 input.x = 0;
             }
-            
 
             if (input != Vector3.zero)
             {
                 prevPlayerFacing = playerFacing;
-                SetFaceingDirection();
+                SetFacingDirection();
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
                 if (playerFacing != prevPlayerFacing)
@@ -74,22 +147,55 @@ public class SlimonController : MonoBehaviour
                     return;
                 }
 
-                animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
-                var targetPos = transform.position;
-                positionChange = Vector3.zero;
-                positionChange.x += input.x;
-                positionChange.z += input.y;
-                var test = targetPos + positionChange;
-                if (isWalkable(test))
+                Vector3 targetPos = transform.position;
+                Vector3 checkDownPos = targetPos + Vector3.down;
+                CollisionResults collDownTest = CollisionTest(checkDownPos);
+                SMWalkSound.Play();
+                if (isClimbing && collDownTest == CollisionResults.None)
                 {
-                    SMWalkSound.Play();
-                    Debug.Log("Walkin");
+                    positionChange = ClimbingInput();
+                }
+                else
+                {
+                    positionChange = OrientatedInput();
+                    if ((pivotObj.transform.localEulerAngles.x != 0.0f | pivotObj.transform.localEulerAngles.y != 0.0f))
+                    {
+                        cameraRot.cameraTurn = true;
+                        StartCoroutine(cameraRot.TurnCameraAngled());
+                    }
+                }
+
+                Vector3 checkForwardPos = targetPos + positionChange;
+                CollisionResults collDirectionTest = CollisionTest(checkForwardPos);
+                if (collDirectionTest == CollisionResults.None)
+                {
                     targetPos += positionChange;
                     StartCoroutine(Move(targetPos));
                 }
+                else if (collDirectionTest == CollisionResults.SolidObject)
+                {
+                    bumpSound.Play();
+                }
+                else if (collDirectionTest == CollisionResults.ClimbableObject)
+                {
+                    if (pivotObj.transform.localEulerAngles.x == 0.0f & pivotObj.transform.localEulerAngles.y == 0.0f)
+                    {
+                        if (input.y > 0.0f && currentState == States.Slime)
+                        {
+                            cameraRot.cameraTurn = true;
+                            isClimbing = true;
+                            StartCoroutine(Move(transform.position + Vector3.up));
+                            StartCoroutine(cameraRot.TurnCameraFlat());
+                        }
+                    }
+                }
+
             }
-            animator.SetBool("isMoving", isMoving);
+
+            if (currentState != States.Liquid)
+            {
+                animator.SetBool("isMoving", isMoving);
+            }
         }
     }
 
@@ -97,60 +203,80 @@ public class SlimonController : MonoBehaviour
     {
         playerSprite.transform.LookAt(mainCam.transform);
     }
+
+    Vector3 OrientatedInput()
+    {
+        Vector3 returnVec = new Vector3();
+        var cameraDirection = cameraRot.cameraDirection;
+        if (cameraDirection == CameraRotate.CameraFacing.North)
+        {
+            returnVec.x += input.x;
+            returnVec.z += input.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.East)
+        {
+            returnVec.x += input.y;
+            returnVec.z -= input.x;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.South)
+        {
+            returnVec.x -= input.x;
+            returnVec.z -= input.y;
+        }
+        else if (cameraDirection == CameraRotate.CameraFacing.West)
+        {
+            returnVec.x -= input.y;
+            returnVec.z += input.x;
+        }
+        return returnVec;
+    }
+
+    Vector3 ClimbingInput()
+    {
+        Vector3 returnVec = new Vector3();
+        returnVec.x = input.x;
+        returnVec.y = input.y;
+        return returnVec;
+    }
+
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
         while ((targetPos - transform.position).sqrMagnitude > 0.000001f)
         {
+            if (teleport)
+            {
+                teleport = false;
+                isMoving = false;
+                gridtestscript.CalculatePathFinding();
+                yield break;
+            }
             transform.position = Vector3.MoveTowards(transform.position, targetPos, walkSpeed * Time.deltaTime);
             yield return null;
         }
         transform.position = targetPos;
         isMoving = false;
-
+        gridtestscript.CalculatePathFinding();
         yield return null;
     }
 
-    private bool isWalkable(Vector3 targetPos)
+    private CollisionResults CollisionTest(Vector3 targetPos)
     {
-        Collider[] hitCollider = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, solidObjectsLayer);
-        if (hitCollider.Length > 0)
+        Collider[] solidObjArray = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, solidObjectsLayer);
+        if (solidObjArray.Length > 0)
         {
-            bumbSound.Play();
-            return false;
+            return CollisionResults.SolidObject;
         }
-        return true;
+        Collider[] climbableObjArray = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, climbableObjectsLayer);
+        if (climbableObjArray.Length > 0)
+        {
+            return CollisionResults.ClimbableObject;
+        }
+
+        return CollisionResults.None;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        if (m_Started)
-        {
-            Vector3 test = transform.position;
-            if (playerFacing == MoveDirection.Up)
-            {
-                test.z += 1;
-            }
-            else if (playerFacing == MoveDirection.Down)
-            {
-                test.z -= 1;
-            }
-            else if (playerFacing == MoveDirection.Left)
-            {
-                test.x -= 1;
-            }
-            else if (playerFacing == MoveDirection.Right)
-            {
-                test.x += 1;
-            }
-
-            
-            Gizmos.DrawWireCube(test, new Vector3(0.3f, 0.3f, 0.3f));
-        }
-    }
-
-    void SetFaceingDirection()
+    void SetFacingDirection()
     {
         if (input.x == 1f)
         {
@@ -168,10 +294,5 @@ public class SlimonController : MonoBehaviour
         {
             playerFacing = MoveDirection.Down;
         }
-    }
-
-    void CreatePSSemiMatter()
-    {
-        PSSemiMatter.Play();
     }
 }
