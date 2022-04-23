@@ -115,9 +115,7 @@ public class PathFinding
         TileBase tile = collistionMap.GetTile(pos);
         if (tile != null)
         {
-            Debug.Log(pos + "walkable Check");
             GetNode(pos.x - (int)xOffset, pos.y - (int)yOffset).isWalkable = false;
-            
         }
     }
     private List<PathNode>GetNeigbourList(PathNode currentNode)

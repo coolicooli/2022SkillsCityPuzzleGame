@@ -13,16 +13,15 @@ public class gridtestScript : MonoBehaviour
     public float yOffset = -10f;
     Vector3 worldPosition = new Vector3(10, 1, 18);
     public EnermypathFinder enermyPathScript;
-
+    Vector3 enermyPosition;
+    Vector3 endpos;
+    public SlimonController playerScript;
 
 
 
     void Start()
     {
-         pathFinding = new PathFinding(20, 20, collistionMap, parent, xOffset, yOffset);
-        Debug.Log(pathFinding);
-        Debug.Log(pathFinding.GetGrid());
-
+        pathFinding = new PathFinding(20, 20, collistionMap, parent, xOffset, yOffset);
     }
     private void Update()
     {
@@ -30,17 +29,10 @@ public class gridtestScript : MonoBehaviour
     }
     public void CalculatePathFinding()
     {
-        
-
-        Vector3 enermyPosition = enermyPathScript.GetPosition();
-        Vector3 endpos = enermyPathScript.GetPlayerPosition();
-
+      
 
         pathFinding.GetGrid().GetXY(enermyPosition, out int sX, out int sY);
         pathFinding.GetGrid().GetXY(endpos, out int x, out int y);
-
-        Debug.Log(x + "   " + y);
-
         List<PathNode> path = pathFinding.FindPath(sX, sY, x, y);
         if (path != null)
         {
@@ -52,7 +44,14 @@ public class gridtestScript : MonoBehaviour
                     Debug.DrawLine(new Vector3(path[i].x + 0.5f + xOffset, 1, path[i].y + 0.5f + yOffset), new Vector3(path[i + 1].x + 0.5f + xOffset, 1, path[i + 1].y + 0.5f + yOffset), Color.blue, 100f);
                 }
             }
-            enermyPathScript.SetTargetPosition();
+            if(playerScript.GetInAIBox() == 1)
+            {
+                enermyPathScript.SetTargetPosition();
+            }else
+            {
+                enermyPathScript.SetTargetHome();
+            }
+            
         }
         else
         {
@@ -60,5 +59,18 @@ public class gridtestScript : MonoBehaviour
         }
         
     }
-    
+    public void CalculatePathFindingPlayer()
+    {
+        enermyPosition = enermyPathScript.GetPosition();
+        endpos = enermyPathScript.GetPlayerPosition();
+        CalculatePathFinding();
+    }
+    public void CalculatePathFindingHome()
+    {
+        enermyPosition = enermyPathScript.GetPosition();
+        endpos = enermyPathScript.GetHomePosition();
+        CalculatePathFinding();
+    }
+
+
 }
