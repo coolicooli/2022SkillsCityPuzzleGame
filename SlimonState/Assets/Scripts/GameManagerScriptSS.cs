@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameManagerScriptSS : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class GameManagerScriptSS : MonoBehaviour
     private int lifeScoreIndex;
     private Transform playerPosition;
     public Transform[] respawnPosition;
+    public AudioSource LosingSound;
+
     int key;
     [SerializeField]
     playerCollectsKeypieces keyScript;
@@ -23,18 +27,27 @@ public class GameManagerScriptSS : MonoBehaviour
         key = keyScript.getLastCollectedKey();
 
     }
-    void Update()
+    /*void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.H))
         {
             lifeLost();
         }
+
+    }*/
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("heart"))
+            lifeLost();
+
     }
     public void lifeLost()
     {
         if(lifeScoreIndex == 2)
         {
-
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            LosingSound.Play();
         }
         else
         {

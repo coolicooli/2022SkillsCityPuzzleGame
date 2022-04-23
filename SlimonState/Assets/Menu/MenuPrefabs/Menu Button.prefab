@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 795838091933530018}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: RestartFromLosingScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4532351527949572523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56db04f87dec85142b25c18a0a9ee4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonIndex: 0
+  ButtonIndex: 1
 --- !u!1 &795838092713469096
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +212,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9a979f15ec86b74393494b853d7cf41, type: 2}
   m_sharedMaterial: {fileID: 5919946916920492447, guid: c9a979f15ec86b74393494b853d7cf41, type: 2}

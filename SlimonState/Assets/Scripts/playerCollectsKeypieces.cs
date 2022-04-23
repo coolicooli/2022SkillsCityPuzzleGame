@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class playerCollectsKeypieces : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class playerCollectsKeypieces : MonoBehaviour
     [Header("Inhereted")]
     [SerializeField]
     private GameObject pieceCountUI;
+    public AudioSource keySound;
+    public AudioSource WinningSound;
     int lastCollectedKey;
 
     void Start()
@@ -29,14 +32,17 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(other.gameObject.tag == "piece1")
         {
             lastCollectedKey = 1;
+            keySound.Play();
         }
         else if (other.gameObject.tag == "piece2")
         {
             lastCollectedKey = 2;
+            keySound.Play();
         }
         else if (other.gameObject.tag == "piece3")
         {
             lastCollectedKey = 3;
+            keySound.Play();
         }
         else
         {
@@ -44,6 +50,11 @@ public class playerCollectsKeypieces : MonoBehaviour
         }
         other.gameObject.SetActive(false);
         numberOfPiecesCollected++;
+        if(numberOfPiecesCollected == 3)
+          {
+                WinningSound.Play();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+          }
     }
     public int getNumberOfPiecesCollected()
     {

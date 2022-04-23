@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SoundTest.unity
-    guid: f6ee0a3636c5bfa4db752ccceca02815
+    path: Assets/Scenes/Main Menu.unity
+    guid: a98ddb5213db2da469583b2c432bbe63
   - enabled: 1
-    path: Assets/Scenes/Important Scenes/MainMenu.unity
-    guid: ab63fd174abe27848a0b65b12bcc13a0
+    path: Assets/Scenes/DanFixes.unity
+    guid: 64fef915e1f649b4d9138e287846dfb3
   - enabled: 1
-    path: Assets/Scenes/Important Scenes/Level1.unity
-    guid: c6d4a769ace485642aa3c3a956ea3bd4
+    path: Assets/Scenes/WinningScene.unity
+    guid: 91a3441419eca0343b120f8928aebbaa
+  - enabled: 1
+    path: Assets/Scenes/LosingScene.unity
+    guid: 1bf371f10c2012241b4a78835003827d
   m_configObjects: {}
