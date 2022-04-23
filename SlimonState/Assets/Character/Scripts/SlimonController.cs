@@ -50,6 +50,7 @@ public class SlimonController : MonoBehaviour
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
     public AudioSource EnemyHit;
+    public AudioSource AcidHit;
     public ParticleSystem SemiMatterPS;
     public gridtestScript gridtestscript;
 
@@ -84,6 +85,10 @@ public class SlimonController : MonoBehaviour
         if (other.gameObject.tag == "enermy")
         {
             EnemyHit.Play();
+        }
+        if (other.gameObject.tag == "acid")
+        {
+            AcidHit.Play();
         }
     }
     public bool getIsMoving()

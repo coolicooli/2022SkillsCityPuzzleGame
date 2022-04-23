@@ -11,6 +11,7 @@ public class TeleporterScript : MonoBehaviour
     [SerializeField] GameObject player;
     private bool isUsable = true;
     private bool isPressed;
+    public AudioSource TeleporterS;
 
     private void Update()
     {
@@ -29,6 +30,7 @@ public class TeleporterScript : MonoBehaviour
                StartCoroutine(Teleport());
                 isPressed = false;
                 isUsable = false;
+                TeleporterS.Play();
             }
 
         }
