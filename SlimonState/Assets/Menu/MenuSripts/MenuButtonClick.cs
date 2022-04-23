@@ -45,7 +45,7 @@ public class MenuButtonClick : MonoBehaviour
     // ** Start new game, load new scene
     void PlayNewGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     // ** Show Options screen method

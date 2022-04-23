@@ -27646,6 +27646,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfPiecesCollected: 0
   pieceCountUI: {fileID: 1309018728}
+  keySound: {fileID: 817051098}
+  WinningSound: {fileID: 1333200635}
 --- !u!4 &972791599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7391539254721369013, guid: 1521ff1223362b147a075b7bcb1c29ad, type: 3}
@@ -27895,6 +27897,7 @@ MonoBehaviour:
   - {fileID: 887471962}
   - {fileID: 386638463}
   - {fileID: 890216673}
+  LosingSound: {fileID: 0}
   keyScript: {fileID: 952089098}
 --- !u!4 &981923126
 Transform:
@@ -36632,7 +36635,7 @@ Tilemap:
       - {fileID: 21300000, guid: ccd35e69aef44464788437a0fcacd42f, type: 3}
       - {fileID: 21300000, guid: b8803146fbb779044b1e26e1a4982b96, type: 3}
       - {fileID: 21300000, guid: cae1688d5d22e554fa0991b55c5a766e, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: -6, z: 0}
@@ -38417,7 +38420,7 @@ Tilemap:
       - {fileID: 21300000, guid: ccd35e69aef44464788437a0fcacd42f, type: 3}
       - {fileID: 21300000, guid: b8803146fbb779044b1e26e1a4982b96, type: 3}
       - {fileID: 21300000, guid: cae1688d5d22e554fa0991b55c5a766e, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: 6, z: 0}
@@ -38468,7 +38471,7 @@ Tilemap:
       - {fileID: 21300000, guid: ccd35e69aef44464788437a0fcacd42f, type: 3}
       - {fileID: 21300000, guid: b8803146fbb779044b1e26e1a4982b96, type: 3}
       - {fileID: 21300000, guid: cae1688d5d22e554fa0991b55c5a766e, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -7, y: 6, z: 0}
