@@ -32506,6 +32506,8 @@ MonoBehaviour:
   playerSprite: {fileID: 650373320}
   pivotObj: {fileID: 275026842}
   SMWalkSound: {fileID: 2089641647}
+  EnemyHit: {fileID: 0}
+  AcidHit: {fileID: 0}
   SemiMatterPS: {fileID: 606042017}
   gridtestscript: {fileID: 1448681994}
   solidObjectsLayer:
@@ -32729,8 +32731,16 @@ AudioSource:
     m_RotationOrder: 4
 =======
   Door: {fileID: 1359949693}
+  DoorOpens: {fileID: 0}
+  DoorTrigger: {fileID: 0}
+  DoorCollision: {fileID: 0}
   DoorSound: {fileID: 1914906563}
   SwitchedOn: 0
+<<<<<<< HEAD
+>>>>>>> AudioDev2
+=======
+  CanPlayS: 0
+  CollectSound: {fileID: 0}
 >>>>>>> AudioDev2
 --- !u!1001 &964795584
 PrefabInstance:
@@ -35532,7 +35542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1359949694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44460,7 +44470,7 @@ Tilemap:
       - {fileID: 21300000, guid: ccd35e69aef44464788437a0fcacd42f, type: 3}
       - {fileID: 21300000, guid: b8803146fbb779044b1e26e1a4982b96, type: 3}
       - {fileID: 21300000, guid: cae1688d5d22e554fa0991b55c5a766e, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -3, y: 6, z: 0}
@@ -45072,7 +45082,7 @@ Tilemap:
       - {fileID: 21300000, guid: ccd35e69aef44464788437a0fcacd42f, type: 3}
       - {fileID: 21300000, guid: b8803146fbb779044b1e26e1a4982b96, type: 3}
       - {fileID: 21300000, guid: cae1688d5d22e554fa0991b55c5a766e, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
 =======
