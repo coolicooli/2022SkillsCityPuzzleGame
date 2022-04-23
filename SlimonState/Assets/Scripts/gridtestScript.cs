@@ -21,10 +21,7 @@ public class gridtestScript : MonoBehaviour
 
     void Start()
     {
-         pathFinding = new PathFinding(20, 20, collistionMap, parent, xOffset, yOffset);
-        Debug.Log(pathFinding);
-        Debug.Log(pathFinding.GetGrid());
-
+        pathFinding = new PathFinding(20, 20, collistionMap, parent, xOffset, yOffset);
     }
     private void Update()
     {
@@ -36,9 +33,6 @@ public class gridtestScript : MonoBehaviour
 
         pathFinding.GetGrid().GetXY(enermyPosition, out int sX, out int sY);
         pathFinding.GetGrid().GetXY(endpos, out int x, out int y);
-
-        Debug.Log(x + "   " + y);
-
         List<PathNode> path = pathFinding.FindPath(sX, sY, x, y);
         if (path != null)
         {

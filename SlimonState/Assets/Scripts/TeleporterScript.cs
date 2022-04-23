@@ -12,45 +12,44 @@ public class TeleporterScript : MonoBehaviour
     [SerializeField]
     private bool isUsable = true;
     [SerializeField]
-    private bool isPressed;
-
+    private bool playerInside = false;
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.T))
+        if(Input.GetKeyDown(KeyCode.T) && playerInside && player.GetComponent<SlimonController>().currentState == SlimonController.States.Liquid)
         {
-            isPressed = true;
-            Debug.Log("t");
+            player.GetComponent<SlimonController>().isMoving = true;
+            isUsable = false;
+            StartCoroutine(Teleport());
+            player.GetComponent<SlimonController>().isMoving = false;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (isUsable == true)
+        if (other.tag == "Player")
         {
-            if(isPressed == true)
-            {
-               StartCoroutine(Teleport());
-                isPressed = false;
-                isUsable = false;
-            }
+            playerInside = true;
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            isUsable = true;
+            playerInside = false;
         }
     }
 
     IEnumerator Teleport()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         player.transform.position = new Vector3(
             teleporter2.transform.position.x,
             teleporter2.transform.position.y,
             teleporter2.transform.position.z);
         teleporter2.GetComponent<TeleporterScript>().isUsable = false;
         isUsable = false;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        isUsable = true;
-        isPressed = false;
     }
 }
    /* public Transform thisPortal;

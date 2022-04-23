@@ -37,7 +37,6 @@ public class EnermypathFinder : MonoBehaviour
     void Start()
     {
         enermyAnim = enermySprite.GetComponent<Animator>();
-        Debug.Log(transform.localPosition + ":  TransformPos");
         cameraRot = pivotObj.GetComponent<CameraRotate>();
     }
 
@@ -60,13 +59,10 @@ public class EnermypathFinder : MonoBehaviour
             
             
             Vector3 tragetpositionAjusted = new Vector3(tragetposition.x - 10, tragetposition.y-10, -1.5f);
-            Debug.Log(transform.localPosition +":  TransformPos");
             if (Vector3.Distance(transform.localPosition, tragetpositionAjusted) > 0.1f)
             {
                 
                 Vector3 moveDir = (tragetpositionAjusted - transform.localPosition).normalized;
-                Debug.Log("Move Direction: " + moveDir);
-
                 float distanceBefore = Vector3.Distance(transform.localPosition, tragetpositionAjusted);
                 Vector3 spriteOrientateAnim = OrientateSprite(moveDir);
                 enermyAnim.SetFloat("moveX", spriteOrientateAnim.x);
