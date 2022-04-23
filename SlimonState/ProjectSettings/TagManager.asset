@@ -9,6 +9,10 @@ TagManager:
   - keyPiece
   - acid
   - enermy
+  - piece3
+  - piece2
+  - piece1
+  - AiBox
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - solidObjects
   - climbableObjects
   - player
-  - 
+  - ignore
   - 
   - 
   - 

@@ -9,7 +9,9 @@ public class TeleporterScript : MonoBehaviour
     [SerializeField] Transform teleporter2;
 
     [SerializeField] GameObject player;
+    [SerializeField]
     private bool isUsable = true;
+    [SerializeField]
     private bool isPressed;
 
     private void Update()
@@ -17,6 +19,7 @@ public class TeleporterScript : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.T))
         {
             isPressed = true;
+            Debug.Log("t");
         }
     }
 

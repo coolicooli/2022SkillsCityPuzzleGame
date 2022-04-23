@@ -12,6 +12,7 @@ public class EnermypathFinder : MonoBehaviour
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
     public GameObject player;
+    public GameObject home;
     public Grid grid;
     private CameraRotate cameraRot;
 
@@ -168,10 +169,23 @@ public class EnermypathFinder : MonoBehaviour
     {
         return player.transform.position;
     }
+    public Vector3 GetHomePosition()
+    {
+        return home.transform.position;
+    }
     public void SetTargetPosition()
     {
         currentPathIndex = 0;
         pathVectorList = PathFinding.Instance.FindPath(GetPosition(), GetPlayerPosition());
+        if (pathVectorList != null && pathVectorList.Count > 1)
+        {
+            pathVectorList.RemoveAt(0);
+        }
+    }
+    public void SetTargetHome()
+    {
+        currentPathIndex = 0;
+        pathVectorList = PathFinding.Instance.FindPath(GetPosition(), GetHomePosition());
         if (pathVectorList != null && pathVectorList.Count > 1)
         {
             pathVectorList.RemoveAt(0);

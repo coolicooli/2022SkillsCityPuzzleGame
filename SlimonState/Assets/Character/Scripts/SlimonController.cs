@@ -29,7 +29,7 @@ public class SlimonController : MonoBehaviour
 
     public float walkSpeed = 4;
     private bool isMoving;
-    private bool isClimbing;
+    public bool isClimbing;
     private bool hasStarted = false;
     private Vector3 input;
     private Animator animator;
@@ -58,6 +58,7 @@ public class SlimonController : MonoBehaviour
     private LayerMask climbableObjectsLayer;
     [SerializeField]
     GameManagerScriptSS gameManager;
+    int calPath = 0;
 
     bool teleport;
 
@@ -80,8 +81,20 @@ public class SlimonController : MonoBehaviour
             teleport = true;
 
         }
+        if (other.gameObject.tag == "AiBox")
+        {
+            calPath = 1;
+        }
     }
-    public bool getIsMoving()
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "AiBox")
+        {
+            calPath = 2;
+        }
+    }
+    
+        public bool getIsMoving()
     {
         return isMoving;
     }
@@ -106,6 +119,7 @@ public class SlimonController : MonoBehaviour
                 isMoving = false;
                 isClimbing = false;
                 walkSpeed = 1.0f;
+                Debug.Log("Space");
             }
             else if (currentState == States.Solid)
             {
@@ -255,8 +269,18 @@ public class SlimonController : MonoBehaviour
             yield return null;
         }
         transform.position = targetPos;
+
         isMoving = false;
-        gridtestscript.CalculatePathFinding();
+        if(calPath == 1)
+        {
+            gridtestscript.CalculatePathFindingPlayer();
+        }
+        else if (calPath == 2)
+        {
+            gridtestscript.CalculatePathFindingHome();
+            calPath = 0;
+        }
+        
         yield return null;
     }
 
@@ -295,4 +319,11 @@ public class SlimonController : MonoBehaviour
             playerFacing = MoveDirection.Down;
         }
     }
+    public int GetInAIBox()
+    {
+        return calPath;
+    }
+    
+
+
 }
