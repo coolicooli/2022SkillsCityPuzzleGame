@@ -42,7 +42,10 @@ public class healthTest : MonoBehaviour
             heart1.SetActive(false);
             heart2.SetActive(false);
             heart3.SetActive(false);
+            
         }
+        
+        
         if (Input.GetKeyDown(KeyCode.J))
         {
             if (health > 0)
