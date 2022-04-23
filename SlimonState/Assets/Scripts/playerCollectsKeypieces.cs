@@ -14,7 +14,9 @@ public class playerCollectsKeypieces : MonoBehaviour
     int lastCollectedKey;
 
     public GameObject Door;
+    public GameObject DoorOpens;
     public GameObject DoorTrigger;
+    public GameObject DoorCollision;
     public AudioSource DoorSound;
     public bool SwitchedOn;
     public bool CanPlayS;
@@ -24,6 +26,7 @@ public class playerCollectsKeypieces : MonoBehaviour
 
     void Start()
     {
+        DoorOpens.SetActive(false);
         Door.SetActive(true);
         numberOfPiecesCollected = 0;
         lastCollectedKey = 0;
@@ -36,6 +39,7 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(numberOfPiecesCollected > 2)
         {
             SwitchedOn = true;
+            DoorCollision.SetActive(false);
         }
 
         pieceCountUI.GetComponent<TextMeshProUGUI>().text = numberOfPiecesCollected.ToString();
@@ -93,6 +97,7 @@ public class playerCollectsKeypieces : MonoBehaviour
     {
         DoorSound.volume = 100;
         DoorSound.Play();
+        DoorOpens.SetActive(true);
         // if(SwitchedOn == true && DoorSound.isPlaying == false)
         // {
         //     DoorSound.Play();
