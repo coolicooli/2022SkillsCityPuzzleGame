@@ -56,6 +56,7 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
+    public ParticleSystem SemiMatterPS;
     public gridtestScript gridtestscript;
 
     [Header("Layers")]
@@ -171,7 +172,8 @@ public class SlimonController : MonoBehaviour
                 Vector3 targetPos = transform.position;
                 Vector3 checkDownPos = targetPos + Vector3.down;
                 CollisionResults collDownTest = CollisionTest(checkDownPos);
-                SMWalkSound.Play();
+                
+                MovingParticle();
                 if (isClimbing && collDownTest == CollisionResults.None)
                 {
                     positionChange = ClimbingInput();
@@ -364,4 +366,9 @@ public class SlimonController : MonoBehaviour
 
 
 
+    void MovingParticle()
+    {
+        SemiMatterPS.Play();
+        SMWalkSound.Play();
+    }
 }

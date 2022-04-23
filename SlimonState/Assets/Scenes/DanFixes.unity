@@ -23112,7 +23112,8 @@ Transform:
   m_LocalRotation: {x: 0.42261845, y: -0, z: -0, w: -0.9063077}
   m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 606042015}
   m_Father: {fileID: 952089093}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 310, y: 0, z: 0}
@@ -27622,6 +27623,7 @@ MonoBehaviour:
   playerSprite: {fileID: 650373320}
   pivotObj: {fileID: 275026842}
   SMWalkSound: {fileID: 2089641647}
+  SemiMatterPS: {fileID: 0}
   gridtestscript: {fileID: 1448681994}
   solidObjectsLayer:
     serializedVersion: 2
@@ -35558,6 +35560,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 563494260}
+  - {fileID: 794164520}
   m_Father: {fileID: 136604067}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
