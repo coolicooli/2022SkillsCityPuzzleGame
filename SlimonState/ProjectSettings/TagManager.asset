@@ -13,6 +13,10 @@ TagManager:
   - piece2
   - piece1
   - AiBox
+  - piece3
+  - piece2
+  - piece1
+  - heart
   layers:
   - Default
   - TransparentFX
