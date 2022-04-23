@@ -14,20 +14,28 @@ public class playerCollectsKeypieces : MonoBehaviour
     int lastCollectedKey;
 
     public GameObject Door;
+    public GameObject DoorTrigger;
     public AudioSource DoorSound;
     public bool SwitchedOn;
+    public bool CanPlayS;
+    
 
     void Start()
     {
         Door.SetActive(true);
         numberOfPiecesCollected = 0;
         lastCollectedKey = 0;
+        DoorSound.volume = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        DoorOpen();
+        if(numberOfPiecesCollected > 2)
+        {
+            SwitchedOn = true;
+        }
+
         pieceCountUI.GetComponent<TextMeshProUGUI>().text = numberOfPiecesCollected.ToString();
     }
     void OnTriggerEnter(Collider other)
@@ -60,26 +68,35 @@ public class playerCollectsKeypieces : MonoBehaviour
     {
         return lastCollectedKey;
     }
-
-    void DoorOpen()
+    
+    void OnCollisionEnter(Collision other)
     {
-        if(numberOfPiecesCollected > 2)
+        
+        if(SwitchedOn)
         {
-            Door.SetActive(false);
+           if(other.gameObject.tag == "Door")
             SwitchedOn = true;
-        }
-
-        if(SwitchedOn == true && DoorSound.isPlaying == false)
-        {
-            DoorSound.Play();
-        }
-        else if(SwitchedOn == false && DoorSound.isPlaying == true)
-        {
-            DoorSound.Stop();
-            DoorSound.volume = 0;
-            SwitchedOn = false;
+            other.gameObject.SetActive(false);
+            DoorOpen();
         }
         
     }
+    
+    void DoorOpen()
+    {
+        DoorSound.volume = 100;
+        DoorSound.Play();
+        // if(SwitchedOn == true && DoorSound.isPlaying == false)
+        // {
+        //     DoorSound.Play();
+        // }
+        // else if(SwitchedOn == false && DoorSound.isPlaying == true)
+        // {
+        //     DoorSound.Stop();
+        //     DoorSound.volume = 0;
+        //     SwitchedOn = false;
+        // }
+    }
+    
 
 }
