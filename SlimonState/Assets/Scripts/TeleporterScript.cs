@@ -13,6 +13,9 @@ public class TeleporterScript : MonoBehaviour
     private bool isUsable = true;
     [SerializeField]
     private bool playerInside = false;
+    private bool isPressed;
+    public AudioSource TeleporterS;
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.T) && playerInside && player.GetComponent<SlimonController>().currentState == SlimonController.States.Liquid)

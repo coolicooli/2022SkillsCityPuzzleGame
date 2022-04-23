@@ -56,6 +56,8 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
+    public AudioSource EnemyHit;
+    public AudioSource AcidHit;
     public ParticleSystem SemiMatterPS;
     public gridtestScript gridtestscript;
 
@@ -91,6 +93,14 @@ public class SlimonController : MonoBehaviour
         if (other.gameObject.tag == "AiBox")
         {
             calPath = 1;
+        }
+        if (other.gameObject.tag == "enermy")
+        {
+            EnemyHit.Play();
+        }
+        if (other.gameObject.tag == "acid")
+        {
+            AcidHit.Play();
         }
     }
     void OnTriggerExit(Collider other)

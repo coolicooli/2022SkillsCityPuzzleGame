@@ -16,15 +16,35 @@ public class playerCollectsKeypieces : MonoBehaviour
     public AudioSource WinningSound;
     int lastCollectedKey;
 
+    public GameObject Door;
+    public GameObject DoorOpens;
+    public GameObject DoorTrigger;
+    public GameObject DoorCollision;
+    public AudioSource DoorSound;
+    public bool SwitchedOn;
+    public bool CanPlayS;
+
+    public AudioSource CollectSound;
+    
+
     void Start()
     {
+        DoorOpens.SetActive(false);
+        Door.SetActive(true);
         numberOfPiecesCollected = 0;
         lastCollectedKey = 0;
+        DoorSound.volume = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(numberOfPiecesCollected > 2)
+        {
+            SwitchedOn = true;
+            DoorCollision.SetActive(false);
+        }
+
         pieceCountUI.GetComponent<TextMeshProUGUI>().text = numberOfPiecesCollected.ToString();
     }
     void OnTriggerEnter(Collider other)
@@ -32,17 +52,17 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(other.gameObject.tag == "piece1")
         {
             lastCollectedKey = 1;
-            keySound.Play();
+            CollectSound.Play();
         }
         else if (other.gameObject.tag == "piece2")
         {
             lastCollectedKey = 2;
-            keySound.Play();
+            CollectSound.Play();
         }
         else if (other.gameObject.tag == "piece3")
         {
             lastCollectedKey = 3;
-            keySound.Play();
+            CollectSound.Play();
         }
         else
         {
@@ -64,5 +84,39 @@ public class playerCollectsKeypieces : MonoBehaviour
     {
         return lastCollectedKey;
     }
+    
+    void OnCollisionEnter(Collision other)
+    {
+        
+        if(SwitchedOn)
+        {
+           if(other.gameObject.tag == "Door")
+           {
+            SwitchedOn = true;
+            Door.gameObject.SetActive(false);
+            DoorOpen();
+           }
+            
+        }
+        
+    }
+    
+    void DoorOpen()
+    {
+        DoorSound.volume = 100;
+        DoorSound.Play();
+        DoorOpens.SetActive(true);
+        // if(SwitchedOn == true && DoorSound.isPlaying == false)
+        // {
+        //     DoorSound.Play();
+        // }
+        // else if(SwitchedOn == false && DoorSound.isPlaying == true)
+        // {
+        //     DoorSound.Stop();
+        //     DoorSound.volume = 0;
+        //     SwitchedOn = false;
+        // }
+    }
+    
 
 }
