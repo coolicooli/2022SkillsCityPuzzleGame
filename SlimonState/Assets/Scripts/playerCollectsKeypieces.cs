@@ -75,9 +75,12 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(SwitchedOn)
         {
            if(other.gameObject.tag == "Door")
+           {
             SwitchedOn = true;
-            other.gameObject.SetActive(false);
+            Door.gameObject.SetActive(false);
             DoorOpen();
+           }
+            
         }
         
     }

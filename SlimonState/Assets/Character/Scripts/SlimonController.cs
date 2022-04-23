@@ -49,6 +49,7 @@ public class SlimonController : MonoBehaviour
     [SerializeField]
     private GameObject pivotObj;
     public AudioSource SMWalkSound;
+    public AudioSource EnemyHit;
     public ParticleSystem SemiMatterPS;
     public gridtestScript gridtestscript;
 
@@ -79,7 +80,10 @@ public class SlimonController : MonoBehaviour
             Debug.Log("collide");
             gameManager.lifeLost();
             teleport = true;
-
+        }
+        if (other.gameObject.tag == "enermy")
+        {
+            EnemyHit.Play();
         }
     }
     public bool getIsMoving()
