@@ -18,6 +18,8 @@ public class playerCollectsKeypieces : MonoBehaviour
     public AudioSource DoorSound;
     public bool SwitchedOn;
     public bool CanPlayS;
+
+    public AudioSource CollectSound;
     
 
     void Start()
@@ -43,15 +45,17 @@ public class playerCollectsKeypieces : MonoBehaviour
         if(other.gameObject.tag == "piece1")
         {
             lastCollectedKey = 1;
+            CollectSound.Play();
         }
         else if (other.gameObject.tag == "piece2")
         {
             lastCollectedKey = 2;
+            CollectSound.Play();
         }
         else if (other.gameObject.tag == "piece3")
         {
             lastCollectedKey = 3;
-            
+            CollectSound.Play();
         }
         else
         {
