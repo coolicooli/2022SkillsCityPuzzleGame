@@ -70,11 +70,6 @@ public class playerCollectsKeypieces : MonoBehaviour
         }
         other.gameObject.SetActive(false);
         numberOfPiecesCollected++;
-        if(numberOfPiecesCollected == 3)
-          {
-                WinningSound.Play();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-          }
     }
     public int getNumberOfPiecesCollected()
     {
@@ -87,7 +82,6 @@ public class playerCollectsKeypieces : MonoBehaviour
     
     void OnCollisionEnter(Collision other)
     {
-        
         if(SwitchedOn)
         {
            if(other.gameObject.tag == "Door")
@@ -98,7 +92,6 @@ public class playerCollectsKeypieces : MonoBehaviour
            }
             
         }
-        
     }
     
     void DoorOpen()
@@ -106,17 +99,5 @@ public class playerCollectsKeypieces : MonoBehaviour
         DoorSound.volume = 100;
         DoorSound.Play();
         DoorOpens.SetActive(true);
-        // if(SwitchedOn == true && DoorSound.isPlaying == false)
-        // {
-        //     DoorSound.Play();
-        // }
-        // else if(SwitchedOn == false && DoorSound.isPlaying == true)
-        // {
-        //     DoorSound.Stop();
-        //     DoorSound.volume = 0;
-        //     SwitchedOn = false;
-        // }
     }
-    
-
 }

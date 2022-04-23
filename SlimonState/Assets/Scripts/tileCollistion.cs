@@ -6,8 +6,7 @@ using UnityEngine.Tilemaps;
 public class tileCollistion : MonoBehaviour
 {
     public GameObject collitionBox;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         var tileMap = this.gameObject.GetComponent<Tilemap>();
         var tileMapGameObject = this.gameObject.transform;

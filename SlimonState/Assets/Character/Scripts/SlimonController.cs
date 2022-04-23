@@ -17,7 +17,8 @@ public class SlimonController : MonoBehaviour
     {
         None = 0,
         SolidObject = 1,
-        ClimbableObject = 2
+        ClimbableObject = 2,
+        Door = 3
     }
 
     public enum States
@@ -66,6 +67,8 @@ public class SlimonController : MonoBehaviour
     private LayerMask solidObjectsLayer;
     [SerializeField]
     private LayerMask climbableObjectsLayer;
+    [SerializeField]
+    private LayerMask doorObjectsLayer;
     [SerializeField]
     GameManagerScriptSS gameManager;
     int calPath = 0;
@@ -133,8 +136,7 @@ public class SlimonController : MonoBehaviour
                     playerSprite.GetComponent<SpriteRenderer>().color = solidColour;
                     isMoving = false;
                     isClimbing = false;
-                    walkSpeed = 1.0f;
-                    Debug.Log("Space");
+                    walkSpeed = 6.0f;
                 }
                 else if (currentState == States.Solid)
                 {
@@ -148,7 +150,7 @@ public class SlimonController : MonoBehaviour
                     currentState = States.Slime;
                     playerSprite.GetComponent<SpriteRenderer>().color = slimeColour;
                     isMoving = false;
-                    walkSpeed = 4.0f;
+                    walkSpeed = 2.0f;
                 }
             }
         }
@@ -225,7 +227,6 @@ public class SlimonController : MonoBehaviour
                     }
 
                 }
-
             }
 
             if (currentState != States.Liquid)
@@ -346,6 +347,12 @@ public class SlimonController : MonoBehaviour
         {
             return CollisionResults.ClimbableObject;
         }
+        Collider[] doorObjArray = Physics.OverlapBox(targetPos, new Vector3(0.3f, 0.3f, 0.3f), Quaternion.identity, doorObjectsLayer);
+        if (climbableObjArray.Length > 0)
+        {
+            return CollisionResults.ClimbableObject;
+        }
+
 
         return CollisionResults.None;
     }
