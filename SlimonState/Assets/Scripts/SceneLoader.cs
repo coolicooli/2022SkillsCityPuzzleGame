@@ -21,28 +21,34 @@ public class SceneLoader : MonoBehaviour
     }
     public void startGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Instructions");
     }
     public void RestartFromWinningScene()
     {
         //resetHealth.health = 3;
         //resetCollectedPeices.numberOfPiecesCollected = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("Level1");
     }
     public void RestartFromLosingScene()
     {   
         //resetHealth.health = 3;
         //resetCollectedPeices.numberOfPiecesCollected = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        SceneManager.LoadScene("Level1");
     }
     public void MenuFromWinningScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        SceneManager.LoadScene("MainMenu");
     }
     public void MenuFromLosingScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
+        SceneManager.LoadScene("MainMenu");
     }
+
+    public void LoadLevelFromIntro()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
     public void Quit()
     {
         Application.Quit();

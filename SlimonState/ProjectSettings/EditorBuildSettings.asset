@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Important Scenes/MainMenu.unity
     guid: ab63fd174abe27848a0b65b12bcc13a0
   - enabled: 1
+    path: Assets/Scenes/Important Scenes/Instructions.unity
+    guid: 1cb95a0c62815e14d861024ae045c1c8
+  - enabled: 1
     path: Assets/Scenes/Important Scenes/Level1.unity
     guid: c6d4a769ace485642aa3c3a956ea3bd4
   - enabled: 1

@@ -568,7 +568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '   Oppsss!
+  m_text: '   Oopsss!
 
     You  Lost'
   m_isRightToLeft: 0
